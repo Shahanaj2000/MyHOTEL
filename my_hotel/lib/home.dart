@@ -4,16 +4,16 @@ import 'package:my_hotel/category.dart';
 
 //! List of map values
 final List rooms = [
-  {"image": "my_hotel/assets/Images/Imperial-Delhi.jpg", "title": "........"},
-  {"image": "my_hotel/assets/Images/itcchola.jpg", "title": "........"},
-  {"image": "my_hotel/assets/Images/leelabangaloreresized.jpg", "title": "........"},
-  {"image": "my_hotel/assets/Images/neeleshwarhermitage.jpg", "title": "........"},
-  {"image": "my_hotel/assets/Images/oberoigrandkolkata.jpg", "title": "........"},
-  {"image": "my_hotel/assets/Images/suryasamudra.jpg", "title": "........"},
-  {"image": "my_hotel/assets/Images/tajlakepalace.jpg", "title": "........"},
-  {"image": "my_hotel/assets/Images/tajmahalmumbai.jpg", "title": "........"},
-  {"image": "my_hotel/assets/Images/ultimatetravellingcamp.jpg", "title": "........"},
-  {"image": "my_hotel/assets/Images/vanyavilas.jpg", "title": "........"},
+  {"image": "/home/ubantu/Luminar_Nov/HotelApp/my_hotel/assets/Images/Imperial-Delhi.jpg", "title": "........", "price": " ₹100"},
+  {"image": "/home/ubantu/Luminar_Nov/HotelApp/my_hotel/assets/Images/itcchola.jpg", "title": "........", "price": " ₹100"},
+  {"image": "/home/ubantu/Luminar_Nov/HotelApp/my_hotel/assets/Images/leelabangaloreresized.jpg", "title": "........", "price": " ₹100"},
+  {"image": "/home/ubantu/Luminar_Nov/HotelApp/my_hotel/assets/Images/neeleshwarhermitage.jpg", "title": "........", "price": " ₹100"},
+  {"image": "/home/ubantu/Luminar_Nov/HotelApp/my_hotel/assets/Images/oberoigrandkolkata.jpg", "title": "........", "price": " ₹100"},
+  {"image": "/home/ubantu/Luminar_Nov/HotelApp/my_hotel/assets/Images/suryasamudra.jpg", "title": "........", "price": " ₹100"},
+  {"image": "/home/ubantu/Luminar_Nov/HotelApp/my_hotel/assets/Images/tajlakepalace.jpg", "title": "........", "price": " ₹100"},
+  {"image": "/home/ubantu/Luminar_Nov/HotelApp/my_hotel/assets/Images/tajmahalmumbai.jpg", "title": "........", "price": " ₹100"},
+  {"image": "/home/ubantu/Luminar_Nov/HotelApp/my_hotel/assets/Images/ultimatetravellingcamp.jpg", "title": "........", "price": " ₹100"},
+  {"image": "/home/ubantu/Luminar_Nov/HotelApp/my_hotel/assets/Images/vanyavilas.jpg", "title": "........","price": " ₹100"},
 
 ];
 
@@ -84,6 +84,12 @@ class HotelHomePage extends StatelessWidget {
            
           SliverToBoxAdapter(
             child: _buildCategories(),
+          ),
+          //!List for the Hoteles
+          SliverList(
+            delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+              return _buildRooms(context, index);
+            },childCount: 50,),
           )
         ],
       ),
@@ -129,6 +135,75 @@ class HotelHomePage extends StatelessWidget {
       ),
     );
   }
+
+  //! Build Rooms
+  Widget _buildRooms(BuildContext context, int index) {
+
+    var room = rooms[index % rooms.length];
+
+    return Container(
+      margin: const EdgeInsets.all(20.0),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(5.0),
+        child: Container(
+          child: Material(
+            elevation: 5.0,
+            borderRadius: BorderRadius.circular(5),
+            color: Colors.white,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Stack(
+                  children: [
+                    Image.asset(room['image']),
+                     const Positioned(
+                      right: 10,
+                      top: 10,
+                      child: Icon(
+                        Icons.star,
+                        color: Colors.transparent,
+                        size: 20.0,
+                      ),
+                    ),
+                    const Positioned(
+                      right: 8,
+                      top: 8,
+                      child: Icon(
+                        Icons.star_border,
+                        color: Colors.white,
+                        size: 24.0,
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 20.0,
+                      right: 10.0,
+                      child: InkWell(
+                        onTap: () {
+                          print("Adding");
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Colors.white,
+                          ),
+                          padding: const EdgeInsets.all(10),
+                          
+                          //child: IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
+                          child:  Text(room['price']),
+                        ),
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+      //color: Colors.red,
+    );
+  }
+
 
 
   
